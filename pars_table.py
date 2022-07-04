@@ -58,10 +58,10 @@ def dict_count(employees_sheet):
     for x in range(2, employees_sheet.max_row + 1):
         if employees_sheet.cell(row=x, column=6).value not in dict_count and \
                 employees_sheet.cell(row=x, column=30).value == 'Продажа':
-            dict_count[employees_sheet.cell(row=x, column=6).value.upper()] = 1
+            dict_count[employees_sheet.cell(row=x, column=6).value] = 1
         elif employees_sheet.cell(row=x, column=6).value in dict_count and \
                 employees_sheet.cell(row=x, column=30).value == 'Продажа':
-            dict_count[employees_sheet.cell(row=x, column=6).value.upper()] += 1
+            dict_count[employees_sheet.cell(row=x, column=6).value] += 1
     return dict_count
 
 
@@ -70,33 +70,35 @@ def dict_count_refund(employees_sheet):
     for x in range(2, employees_sheet.max_row + 1):
         if employees_sheet.cell(row=x, column=6).value not in dict_count_refund and \
                 employees_sheet.cell(row=x, column=30).value == 'Возврат':
-            dict_count_refund[employees_sheet.cell(row=x, column=6).value.upper()] = 1
+            dict_count_refund[employees_sheet.cell(row=x, column=6).value] = 1
         elif employees_sheet.cell(row=x, column=6).value in dict_count_refund and \
                 employees_sheet.cell(row=x, column=30).value == 'Возврат':
-            dict_count_refund[employees_sheet.cell(row=x, column=6).value.upper()] += 1
+            dict_count_refund[employees_sheet.cell(row=x, column=6).value] += 1
     return dict_count_refund
 
 
 def dict_WB_sell(employees_sheet):
-    dict_WB_cell = {}
+    dict_WB_sell = {}
     for x in range(2, employees_sheet.max_row + 1):
-        if employees_sheet.cell(row=x, column=6).value not in dict_WB_cell and \
+        if employees_sheet.cell(row=x, column=6).value not in dict_WB_sell and \
                 employees_sheet.cell(row=x, column=12).value == 'Продажа':
-            dict_WB_cell[employees_sheet.cell(row=x, column=6).value.upper()] = \
-                employees_sheet.cell(row=x, column=15).value
-        if employees_sheet.cell(row=x, column=6).value not in dict_WB_cell and \
-                employees_sheet.cell(row=x, column=12).value == 'Возврат':
-            dict_WB_cell[employees_sheet.cell(row=x, column=6).value.upper()] = \
-                -employees_sheet.cell(row=x, column=15).value
-        elif employees_sheet.cell(row=x, column=6).value in dict_WB_cell and \
+            dict_WB_sell[employees_sheet.cell(row=x, column=6).value] = \
+                float(employees_sheet.cell(row=x, column=15).value)
+        elif employees_sheet.cell(row=x, column=6).value in dict_WB_sell and \
                 employees_sheet.cell(row=x, column=12).value == 'Продажа':
-            dict_WB_cell[employees_sheet.cell(row=x, column=6).value.upper()] += \
-                employees_sheet.cell(row=x, column=15).value
-        elif employees_sheet.cell(row=x, column=6).value in dict_WB_cell and \
-                employees_sheet.cell(row=x, column=12).value == 'Возврат':
-            dict_WB_cell[employees_sheet.cell(row=x, column=6).value.upper()] -= \
-                employees_sheet.cell(row=x, column=15).value
-    return dict_WB_cell
+            dict_WB_sell[employees_sheet.cell(row=x, column=6).value] += \
+                float(employees_sheet.cell(row=x, column=15).value)
+        if employees_sheet.cell(row=x, column=6).value not in dict_WB_sell and \
+                employees_sheet.cell(row=x, column=12).value == 'Возврат'and \
+                employees_sheet.cell(row=x, column=30).value != 'Сторно продаж':
+            dict_WB_sell[employees_sheet.cell(row=x, column=6).value] = \
+                float(-employees_sheet.cell(row=x, column=15).value)
+        elif employees_sheet.cell(row=x, column=6).value in dict_WB_sell and \
+                employees_sheet.cell(row=x, column=12).value == 'Возврат'and \
+                employees_sheet.cell(row=x, column=30).value != 'Сторно продаж':
+            dict_WB_sell[employees_sheet.cell(row=x, column=6).value] -= \
+                float(employees_sheet.cell(row=x, column=15).value)
+    return dict_WB_sell
 
 
 def dict_logistics(employees_sheet):
@@ -104,11 +106,11 @@ def dict_logistics(employees_sheet):
     for x in range(2, employees_sheet.max_row + 1):
         if employees_sheet.cell(row=x, column=6).value not in dict_logistics and \
                 employees_sheet.cell(row=x, column=30).value == 'Логистика':
-            dict_logistics[employees_sheet.cell(row=x, column=6).value.upper()] = \
+            dict_logistics[employees_sheet.cell(row=x, column=6).value] = \
                 employees_sheet.cell(row=x, column=38).value
         elif employees_sheet.cell(row=x, column=6).value in dict_logistics and \
                 employees_sheet.cell(row=x, column=30).value == 'Логистика':
-            dict_logistics[employees_sheet.cell(row=x, column=6).value.upper()] += \
+            dict_logistics[employees_sheet.cell(row=x, column=6).value] += \
                 employees_sheet.cell(row=x, column=38).value
     return dict_logistics
 
@@ -118,20 +120,22 @@ def dict_get_seller(employees_sheet):
     for x in range(2, employees_sheet.max_row + 1):
         if employees_sheet.cell(row=x, column=6).value not in dict_get_seller and \
                 employees_sheet.cell(row=x, column=12).value == 'Продажа':
-            dict_get_seller[employees_sheet.cell(row=x, column=6).value.upper()] = \
-                employees_sheet.cell(row=x, column=35).value
-        if employees_sheet.cell(row=x, column=6).value not in dict_get_seller and \
-                employees_sheet.cell(row=x, column=12).value == 'Возврат':
-            dict_get_seller[employees_sheet.cell(row=x, column=6).value.upper()] = \
-                -employees_sheet.cell(row=x, column=35).value
+            dict_get_seller[employees_sheet.cell(row=x, column=6).value] = \
+                float(employees_sheet.cell(row=x, column=35).value)
         elif employees_sheet.cell(row=x, column=6).value in dict_get_seller and \
                 employees_sheet.cell(row=x, column=12).value == 'Продажа':
-            dict_get_seller[employees_sheet.cell(row=x, column=6).value.upper()] += \
-                employees_sheet.cell(row=x, column=35).value
+            dict_get_seller[employees_sheet.cell(row=x, column=6).value] += \
+                float(employees_sheet.cell(row=x, column=35).value)
+        if employees_sheet.cell(row=x, column=6).value not in dict_get_seller and \
+                employees_sheet.cell(row=x, column=12).value == 'Возврат' and \
+                employees_sheet.cell(row=x, column=30).value != 'Сторно продаж':
+            dict_get_seller[employees_sheet.cell(row=x, column=6).value] = \
+                float(-employees_sheet.cell(row=x, column=35).value)
         elif employees_sheet.cell(row=x, column=6).value in dict_get_seller and \
-                employees_sheet.cell(row=x, column=12).value == 'Возврат':
-            dict_get_seller[employees_sheet.cell(row=x, column=6).value.upper()] -= \
-                employees_sheet.cell(row=x, column=35).value
+                employees_sheet.cell(row=x, column=12).value == 'Возврат'and \
+                employees_sheet.cell(row=x, column=30).value != 'Сторно продаж':
+            dict_get_seller[employees_sheet.cell(row=x, column=6).value] -= \
+                float(employees_sheet.cell(row=x, column=35).value)
     return dict_get_seller
 
 
@@ -147,7 +151,6 @@ def convert_to_column_letter(column_number):
 def update_table_article(name, last_monday, last_sunday, month, table_id, list_articles):
     range_name = f'{name} {last_monday}-{last_sunday}.{month}'
     position_for_place = START_POSITION_FOR_PLACE
-
     service = build('sheets', 'v4', credentials=credentials)
     sheet = service.spreadsheets()
     result = sheet.values().get(spreadsheetId=table_id,
@@ -162,7 +165,7 @@ def update_table_article(name, last_monday, last_sunday, month, table_id, list_a
             try:
                 index = 0
                 if len(list_articles) != 0:
-                    value = list_articles[index].upper()
+                    value = list_articles[index]
                     body_data += [
                         {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 1)}{i}',
                          'values': [[f'{value}']]}]
@@ -194,11 +197,11 @@ def update_table_count(name, last_monday, last_sunday, month, table_id, dict_cou
     else:
         for row in values[1:]:
             try:
-                count = row[2].strip().upper()
+                count = row[2].strip()
                 if count in dict_count:
                     value = dict_count[count]
                     body_data += [
-                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 3)}{i}',
+                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 6)}{i}',
                          'values': [[f'{value}']]}]
             except:
                 pass
@@ -226,11 +229,11 @@ def update_table_count_refund(name, last_monday, last_sunday, month, table_id, d
     else:
         for row in values[1:]:
             try:
-                count = row[2].strip().upper()
+                count = row[2].strip()
                 if count in dict_count_refund:
                     value = dict_count_refund[count]
                     body_data += [
-                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 4)}{i}',
+                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 7)}{i}',
                          'values': [[f'{value}']]}]
             except:
                 pass
@@ -258,10 +261,10 @@ def update_table_WB_sell(name, last_monday, last_sunday, month, table_id, dict_W
     else:
         for row in values[1:]:
             try:
-                count = row[2].strip().upper()
+                count = row[2].strip()
                 if count in dict_WB_sell:
-                    value = str(dict_WB_sell[count])
-                    value = value.replace('.', ',')
+                    value = dict_WB_sell[count]
+
                     body_data += [
                         {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 9)}{i}',
                          'values': [[f'{value}']]}]
@@ -291,12 +294,13 @@ def update_table_logistics(name, last_monday, last_sunday, month, table_id, dict
     else:
         for row in values[1:]:
             try:
-                count = row[2].strip().upper()
+                count = row[2].strip()
                 if count in dict_logistics:
-                    value = str(dict_logistics[count])
-                    value = value.replace('.', ',')
+
+                    value = dict_logistics[count]
+
                     body_data += [
-                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 10)}{i}',
+                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 11)}{i}',
                          'values': [[f'{value}']]}]
             except:
                 pass
@@ -324,12 +328,12 @@ def update_table_get_seller(name, last_monday, last_sunday, month, table_id, dic
     else:
         for row in values[1:]:
             try:
-                count = row[2].strip().upper()
+                count = row[2].strip()
                 if count in dict_get_seller:
-                    value = str(dict_get_seller[count])
-                    value = value.replace('.', ',')
+                    value = int(dict_get_seller[count])
+                    # value = value.replace('.', ',')
                     body_data += [
-                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 11)}{i}',
+                        {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 13)}{i}',
                          'values': [[f'{value}']]}]
             except:
                 pass
@@ -343,24 +347,28 @@ def update_table_get_seller(name, last_monday, last_sunday, month, table_id, dic
 
 if __name__ == '__main__':
     table_id = SPREADSHEET_ID
-    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=8)
-    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=2)
+    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=14)
+    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=8)
     last_monday = date_from.strftime("%d")
     last_sunday = date_to.strftime("%d")
     month = date_to.strftime("%m")
+
 
     cred_file = os.path.join(BASE_DIR, 'credentials.json')
     with open(cred_file, 'r', encoding="utf-8") as f:
         cred = json.load(f)
 
     for i in cred:
-        if i == 'Орлова':
+        if i != 'Савельева':
             table_id = SPREADSHEET_ID
             name = i
             with warnings.catch_warnings(record=True):
                 warnings.simplefilter("always")
                 excel_file = openpyxl.load_workbook(f'excel_docs/{name} {last_monday}-{last_sunday}.{month}.xlsx')
             employees_sheet = excel_file['Sheet1']
+            sell = dict_get_seller(employees_sheet)
+
+
             list_articles(employees_sheet)
             update_table_article(name, last_monday, last_sunday, month, table_id, list_articles(employees_sheet))
             update_table_count(name, last_monday, last_sunday, month, table_id, dict_count(employees_sheet))

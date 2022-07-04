@@ -16,7 +16,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 options = Options()
 
-prefs = {'download.default_directory': 'excel_docs/'}
+prefs = {'download.default_directory': r'C:\Users\ikaty\PycharmProjects\parser_margin\excel_docs'}
 
 options.add_experimental_option('prefs', prefs)
 options.add_argument("--disable-blink-features")
@@ -67,23 +67,22 @@ def auth(url,name):
     for cookie in cookies:
         driver.add_cookie(cookie)
     time.sleep(25)
-    attempt = driver.find_element(By.XPATH,'/html/body/div[11]/div/div/div/div[3]/button')
-    attempt.click()
+    # attempt = driver.find_element(By.XPATH,'WarningCookiesBannerCard__button__DSLFl2gcQr')
+    # attempt.click()
     return time.sleep(1)
 
 
 def get_margin(name,last_monday,last_sunday,month):
-    pick_button = driver.find_element(By.XPATH,'/html/body/div[1]/div/div[2]/div/div[1]/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div[2]/div[1]/div[1]/button')
+    pick_button = driver.find_element(By.CLASS_NAME,'Reports-table-row__menu-button__2dZVS0atXp')
     pick_button.click()
     time.sleep(2)
-    detail_button = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div/div[1]/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div[2]/div[1]/div[1]/button/div[2]/ul/li/div')
+    detail_button = driver.find_element(By.CLASS_NAME, 'Navigation-item__button__1Ptxjizz-A')
     detail_button.click()
     time.sleep(5)
-    download_button = driver.find_element(By.CLASS_NAME, 'DownloadButtons__download-button__9s6x08Q6Uh')
-    # download_button = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[2]/div/div[1]/div/div/div/div/div[4]/div/div[1]/div[2]/div[2]/button')
+    download_button = driver.find_element(By.CLASS_NAME, 'ReportsTableFilters__input__3ZMgV33Rsy ReportsTableFilters__input--second-col-first__2_FmKXulYO')
     download_button.click()
     time.sleep(2)
-    detail_save_button = driver.find_element(By.XPATH,'/html/body/div[1]/div/div[2]/div/div[1]/div/div/div/div/div[4]/div/div[1]/div[2]/div[2]/div/ul/li[1]/button')
+    detail_save_button = driver.find_element(By.CLASS_NAME,'Menu-block-item__button__1nvLrmLuUi')
     detail_save_button.click()
     time.sleep(15)
     for file_name in [f for f in os.listdir(dirparth)]:
