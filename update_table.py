@@ -59,8 +59,8 @@ def copy_sheets(table_id, name, sheet_id, last_day, present_day, month):
 
 
 if __name__ == '__main__':
-    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=8)
-    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=2)
+    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=7)
+    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=1)
     last_monday = date_from.strftime("%d")
     last_sunday = date_to.strftime("%d")
     month = date_to.strftime("%m")
@@ -72,6 +72,6 @@ if __name__ == '__main__':
         if i == 'Белотелов':
             copy_sheets(table_id, i, 1, last_monday, last_sunday, month)
         elif i == 'Орлова':
-            copy_sheets(table_id, i, 2, last_monday, last_sunday, month)
+            copy_sheets(table_id, i, 1, last_monday, last_sunday, month)
         elif i == 'Кулик':
-            copy_sheets(table_id, i, 3, last_monday, last_sunday, month)
+            copy_sheets(table_id, i, 1, last_monday, last_sunday, month)

@@ -73,16 +73,16 @@ def auth(url,name):
 
 
 def get_margin(name,last_monday,last_sunday,month):
-    pick_button = driver.find_element(By.CLASS_NAME,'Reports-table-row__menu-button__2dZVS0atXp')
+    pick_button = driver.find_element(By.XPATH,'/html/body/div[1]/div/div[1]/div[1]/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div[1]/button')
     pick_button.click()
     time.sleep(2)
-    detail_button = driver.find_element(By.CLASS_NAME, 'Navigation-item__button__1Ptxjizz-A')
+    detail_button = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div[1]/div/div/div/div[3]/div/div/div[2]/div[1]/div/div/div[2]/div[2]/div[1]/button/div[2]/ul/li/div')
     detail_button.click()
     time.sleep(5)
-    download_button = driver.find_element(By.CLASS_NAME, 'ReportsTableFilters__input__3ZMgV33Rsy ReportsTableFilters__input--second-col-first__2_FmKXulYO')
+    download_button = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div[1]/div/div/div/div/div[4]/div/div[1]/div[2]/div[1]/button')
     download_button.click()
     time.sleep(2)
-    detail_save_button = driver.find_element(By.CLASS_NAME,'Menu-block-item__button__1nvLrmLuUi')
+    detail_save_button = driver.find_element(By.XPATH,'/html/body/div[1]/div/div[1]/div[1]/div/div/div/div/div[4]/div/div[1]/div[2]/div[1]/div/ul/li[1]/button')
     detail_save_button.click()
     time.sleep(15)
     for file_name in [f for f in os.listdir(dirparth)]:
@@ -102,8 +102,8 @@ def get_margin(name,last_monday,last_sunday,month):
 
 
 if __name__ == '__main__':
-    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=8)
-    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=2)
+    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=7)
+    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=1)
     last_monday = date_from.strftime("%d")
     last_sunday = date_to.strftime("%d")
     month = date_to.strftime("%m")

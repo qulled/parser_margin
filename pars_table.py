@@ -264,10 +264,9 @@ def update_table_WB_sell(name, last_monday, last_sunday, month, table_id, dict_W
                 count = row[2].strip()
                 if count in dict_WB_sell:
                     value = dict_WB_sell[count]
-
                     body_data += [
                         {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 9)}{i}',
-                         'values': [[f'{value}']]}]
+                         'values': [[f'{int(value)}']]}]
             except:
                 pass
             finally:
@@ -296,12 +295,10 @@ def update_table_logistics(name, last_monday, last_sunday, month, table_id, dict
             try:
                 count = row[2].strip()
                 if count in dict_logistics:
-
                     value = dict_logistics[count]
-
                     body_data += [
                         {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 11)}{i}',
-                         'values': [[f'{value}']]}]
+                         'values': [[f'{int(value)}']]}]
             except:
                 pass
             finally:
@@ -330,11 +327,10 @@ def update_table_get_seller(name, last_monday, last_sunday, month, table_id, dic
             try:
                 count = row[2].strip()
                 if count in dict_get_seller:
-                    value = int(dict_get_seller[count])
-                    # value = value.replace('.', ',')
+                    value = dict_get_seller[count]
                     body_data += [
                         {'range': f'{range_name}!{convert_to_column_letter(position_for_place + 13)}{i}',
-                         'values': [[f'{value}']]}]
+                         'values': [[f'{int(value)}']]}]
             except:
                 pass
             finally:
@@ -347,8 +343,8 @@ def update_table_get_seller(name, last_monday, last_sunday, month, table_id, dic
 
 if __name__ == '__main__':
     table_id = SPREADSHEET_ID
-    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=14)
-    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=8)
+    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=7)
+    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=1)
     last_monday = date_from.strftime("%d")
     last_sunday = date_to.strftime("%d")
     month = date_to.strftime("%m")
