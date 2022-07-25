@@ -91,7 +91,7 @@ def get_margin(name,last_monday,last_sunday,month):
     with zipfile.ZipFile(f'{dirparth}\\{zipname}', "r") as zip_ref:
         zip_ref.extractall(dirparth)
     try:
-        file_oldname = os.path.join(dirparth, '0.xlsx')
+        file_oldname = os.path.join(dirparth, 'Белотелов 11-17.07.xlsx')
         file_newname_newfile = os.path.join(dirparth, f'{name} {last_monday}-{last_sunday}.{month}.xlsx')
         os.rename(file_oldname, file_newname_newfile)
         path = os.path.join(dirparth, f'{zipname}')

@@ -23,7 +23,7 @@ options.add_argument("--disable-blink-features")
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
-options.add_argument('--headless')
+# options.add_argument('--headless')
 
 driver = webdriver.Chrome(options=options,service=Service(ChromeDriverManager().install()))
 
@@ -91,7 +91,7 @@ def get_margin(name,last_monday,last_sunday,month):
     with zipfile.ZipFile(f'{dirparth}\\{zipname}', "r") as zip_ref:
         zip_ref.extractall(dirparth)
     try:
-        file_oldname = os.path.join(dirparth, '0.xlsx')
+        file_oldname = os.path.join(dirparth, 'Белотелов 11-17.07.xlsx')
         file_newname_newfile = os.path.join(dirparth, f'{name} {last_monday}-{last_sunday}.{month}.xlsx')
         os.rename(file_oldname, file_newname_newfile)
         path = os.path.join(dirparth, f'{zipname}')
@@ -102,8 +102,8 @@ def get_margin(name,last_monday,last_sunday,month):
 
 
 if __name__ == '__main__':
-    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=7)
-    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=1)
+    date_from = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=8)
+    date_to = dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=2)
     last_monday = date_from.strftime("%d")
     last_sunday = date_to.strftime("%d")
     month = date_to.strftime("%m")
@@ -114,6 +114,6 @@ if __name__ == '__main__':
         get_margin(name,last_monday,last_sunday,month)
     except Exception as e:
         print(e)
-    # finally:
-    #     driver.close()
-    #     exit()
+    finally:
+        driver.close()
+        exit()
